@@ -11,7 +11,7 @@ export async function GET(request: Request) {
   }
 
   try {
-    // TENANT ISOLATION POINT (ROUTE): Always use session.tenantId, never from query or headers.
+    // TENANT ISOLATION: tenantId comes only from the verified session cookie.
     const invoices = await listInvoices(session.tenantId);
     return NextResponse.json({ invoices }, { status: 200 });
   } catch (error) {
@@ -64,14 +64,14 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: message }, { status: 400 });
   }
 
-  // 4. Create invoice with lines in a single database transaction
-  // TENANT ISOLATION POINT (MUTATION): tenantId is strictly taken from verified session
+  // 4. Create invoice with lines in a single database transaction.
+  // TENANT ISOLATION: session.tenantId is used — never any value from the request body or headers.
   try {
     const createdInvoice = await createInvoice(session.tenantId, session.userId, invoiceData);
     return NextResponse.json(createdInvoice, { status: 201 });
-  } catch (error: any) {
-    // 5. Unique violation (Postgres error code 23505) -> 409 Conflict
-    if (error && (error.code === "23505" || error.constraint === "uq_invoices_tenant_vendor_invoice_number")) {
+  } catch (error: unknown) {
+    // 5. Unique constraint violation (Postgres error code 23505) -> 409 Conflict
+    if (error && typeof error === "object" && (error as { code?: string }).code === "23505") {
       return NextResponse.json(
         { error: "Invoice already exists for this vendor and invoice number" },
         { status: 409 }

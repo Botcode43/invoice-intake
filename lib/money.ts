@@ -28,14 +28,10 @@ export function parseToCents(val: string): bigint {
 /**
  * Formats integer cents into a standard 2-decimal string (e.g., 1020n -> "10.20", 5n -> "0.05").
  */
-export function formatCents(cents: bigint | number): string {
-  const c = typeof cents === "bigint" ? cents : BigInt(cents);
-  const isNegative = c < 0n;
-  const abs = isNegative ? -c : c;
-  const dollars = abs / 100n;
-  const rem = abs % 100n;
-  const formatted = `${dollars.toString()}.${rem.toString().padStart(2, "0")}`;
-  return isNegative ? `-${formatted}` : formatted;
+export function formatCents(cents: bigint): string {
+  const dollars = cents / 100n;
+  const rem = cents % 100n;
+  return `${dollars}.${rem.toString().padStart(2, "0")}`;
 }
 
 /**
