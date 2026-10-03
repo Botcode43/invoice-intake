@@ -42,8 +42,8 @@ export function buildRequest(
 }
 
 /**
- * Truncates invoices and invoice_lines tables between tests for complete test isolation.
+ * Truncates invoice_lines, invoices, and users tables between tests for complete test isolation.
  */
 export async function truncateTables(): Promise<void> {
-  await pool.query("TRUNCATE TABLE invoice_lines, invoices CASCADE;");
+  await pool.query("TRUNCATE TABLE invoice_lines, invoices, users CASCADE;");
 }
