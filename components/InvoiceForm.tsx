@@ -55,6 +55,7 @@ export default function InvoiceForm() {
   }
 
   function removeLine(i: number) {
+    if (lines.length <= 1) return; // keep at least one line
     setLines(lines.filter((_, idx) => idx !== i));
   }
 

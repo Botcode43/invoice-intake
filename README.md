@@ -1,6 +1,6 @@
 # Tenant-Safe Multi-Tenant Invoice Intake Service
 
-A secure, multi-tenant invoice intake service built with Next.js (App Router), TypeScript, PostgreSQL (`pg` driver with plain SQL, no ORM), Zod, and Vitest.
+A secure, multi-tenant invoice intake service built with Next.js 15 (App Router), TypeScript, PostgreSQL (`pg` driver with plain SQL, no ORM), Zod, and Vitest.
 
 ---
 
@@ -95,4 +95,4 @@ Tenant isolation is strictly enforced at two key locations in the backend and ca
 
 ## 🤖 AI usage
 
-AI assisted with scaffolding the project structure, typing boilerplate, and writing unit/integration test suites. All business logic, tenant isolation boundaries, money handling logic, and database schemas were carefully reviewed and validated against live PostgreSQL and Next.js builds.
+AI assisted (antigravity) with scaffolding the project structure, typing boilerplate, and writing unit/integration test suites. All business logic, tenant isolation boundaries, money handling logic, and database schemas were carefully reviewed and validated against live PostgreSQL and Next.js builds.
