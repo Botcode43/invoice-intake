@@ -93,10 +93,3 @@ export function createSessionCookie(userId: string, tenantId: string): string {
   const token = signSession({ userId, tenantId });
   return `session=${token}; Path=/; HttpOnly; SameSite=Lax`;
 }
-
-/**
- * Generates the serialized cookie string to expire/clear the session cookie.
- */
-export function clearSessionCookie(): string {
-  return `session=; Path=/; HttpOnly; SameSite=Lax; Max-Age=0; Expires=Thu, 01 Jan 1970 00:00:00 GMT`;
-}

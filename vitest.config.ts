@@ -12,7 +12,6 @@ if (process.env.TEST_DATABASE_URL) {
 export default defineConfig({
   test: {
     environment: "node",
-    fileParallelism: false,
     include: ["tests/**/*.test.ts"],
   },
   resolve: {
